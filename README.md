@@ -24,6 +24,20 @@ npm run build
 npm run preview
 ```
 
+## Deploy na Vercel
+
+O projeto já está pronto para deploy na Vercel:
+
+1. Importe o repositório GitHub no [dashboard da Vercel](https://vercel.com/new) — o framework "Vite" é detectado automaticamente (build command `npm run build`, output directory `dist`).
+2. **Configure as variáveis de ambiente** do EmailJS em *Project Settings → Environment Variables* (Production, Preview e Development):
+   - `VITE_EMAILJS_SERVICE_ID`
+   - `VITE_EMAILJS_TEMPLATE_ID`
+   - `VITE_EMAILJS_PUBLIC_KEY`
+
+   Sem isso, o site funciona normalmente, mas o formulário de contato exibirá a mensagem de erro amigável ao tentar enviar (não quebra a build nem a navegação).
+3. O arquivo [`vercel.json`](vercel.json) já contém o rewrite necessário para que rotas do React Router (`/sobre`, `/contato`, `/areas-de-atuacao/:slug` etc.) funcionem corretamente em acesso direto ou ao atualizar a página — sem ele, essas rotas retornariam 404 no host estático.
+4. Cada push para `master` gera um novo deploy de produção automaticamente (comportamento padrão da Vercel integrado ao GitHub).
+
 ## Estrutura de pastas
 
 ```
